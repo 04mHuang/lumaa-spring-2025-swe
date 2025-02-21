@@ -118,6 +118,7 @@ This challenge is intended to be completed within ~3 hours, so keep solutions mi
 
 Good luck, and we look forward to your submission!
 
-src:
+from the root directory:
+./src/db/init_wrapper.sh
 npm install
 npm run dev
