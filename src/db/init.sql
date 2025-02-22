@@ -1,13 +1,62 @@
+-- suppress extraneous printouts from statement executions
+\set QUIET on
+-- stop script if error or exception raised
+\set ON_ERROR_STOP 1 
+
+-- set the custom current_setting configuration parameters
 SET app.db_user = :'db_user';
 SET app.db_password = :'db_password';
+SET app.db_name = :'db_name';
 
-SELECT current_setting('app.db_user') as username;
-SELECT current_setting('app.db_password') as password;
+DO $$
+DECLARE
+    db_user text = current_setting('app.db_user');
+    db_password text = current_setting('app.db_password');
+    db_name text = current_setting('app.db_name');
+BEGIN
+    -- RAISE NOTICE 'Created user %', db_user;
+    -- RAISE NOTICE 'with password %', db_password;
+    -- create user with database creation permissions if user doesn't exist
+    IF NOT EXISTS (SELECT FROM pg_catalog.pg_user WHERE usename=db_user) THEN
+        EXECUTE format('CREATE USER %I WITH PASSWORD %L', db_user, db_password);
+        EXECUTE format('ALTER USER %I WITH CREATEDB', db_user);
+        RAISE NOTICE 'User % created', db_user;
+    ELSE 
+        RAISE NOTICE 'User % already exists', db_user;
+    END IF;
+    -- stop script if database already exists
+    IF EXISTS (SELECT FROM pg_catalog.pg_database WHERE datname=db_name) THEN
+        RAISE NOTICE 'Database % already exists', db_name;
+        RAISE EXCEPTION 'If attempting to reinitialize database % owned by %, drop the database first.', db_name, db_user;
+    END IF;
+END $$;
 
--- DO $$
--- BEGIN
---     IF NOT EXISTS (SELECT * FROM pg_catalog.pg_user WHERE username=:'db_user') THEN
---         CREATE USER :'db_user' WITH PASSWORD :'db_password';
---         RAISE NOTICE 'Created user %', db_user;
+-- create database and tables
+CREATE DATABASE :db_name WITH OWNER :db_user;
+SELECT 'Database ' || :'db_name' || ' created' AS notice;
 
--- END $$;
+CREATE TABLE users (
+id SERIAL PRIMARY KEY,
+username TEXT UNIQUE NOT NULL,
+password  TEXT NOT NULL
+);
+CREATE TABLE tasks (
+    id SERIAL PRIMARY KEY,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    isComplete BOOLEAN NOT NULL DEFAULT FALSE,
+    userId INTEGER REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- printout and reset user, tables, and database for testing
+-- DROP TABLE IF EXISTS tasks;
+-- DROP TABLE IF EXISTS users;
+-- DROP DATABASE IF EXISTS :db_name;
+-- DROP ROLE :db_user;
+
+SELECT d.datname as name, pg_catalog.pg_get_userbyid(d.datdba) as "Owner"
+    FROM pg_catalog.pg_database d WHERE d.datname =:'db_name';
+SELECT * FROM users;
+SELECT * FROM tasks;
+
+\set QUIET off
