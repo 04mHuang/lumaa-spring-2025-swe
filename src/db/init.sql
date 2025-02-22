@@ -14,8 +14,6 @@ DECLARE
     db_password text = current_setting('app.db_password');
     db_name text = current_setting('app.db_name');
 BEGIN
-    -- RAISE NOTICE 'Created user %', db_user;
-    -- RAISE NOTICE 'with password %', db_password;
     -- create user with database creation permissions if user doesn't exist
     IF NOT EXISTS (SELECT FROM pg_catalog.pg_user WHERE usename=db_user) THEN
         EXECUTE format('CREATE USER %I WITH PASSWORD %L', db_user, db_password);
@@ -47,16 +45,5 @@ CREATE TABLE tasks (
     isComplete BOOLEAN NOT NULL DEFAULT FALSE,
     userId INTEGER REFERENCES users(id) ON DELETE CASCADE
 );
-
--- printout and reset user, tables, and database for testing
--- DROP TABLE IF EXISTS tasks;
--- DROP TABLE IF EXISTS users;
--- DROP DATABASE IF EXISTS :db_name;
--- DROP ROLE :db_user;
-
-SELECT d.datname as name, pg_catalog.pg_get_userbyid(d.datdba) as "Owner"
-    FROM pg_catalog.pg_database d WHERE d.datname =:'db_name';
-SELECT * FROM users;
-SELECT * FROM tasks;
 
 \set QUIET off
