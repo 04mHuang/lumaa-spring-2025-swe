@@ -10,13 +10,13 @@ export const pool = new Pool({
   port: Number(process.env.DB_PORT) || 5432
 });
 
-// export const query = async (text: string, values?: any[]) => {
-//   try {
-//     const res = await pool.query(text, values);
-//     return res;
-//   }
-//   catch(err) {
-//     console.error("Database error: ", err);
-//     throw err;
-//   }
-// };
+export const query = async (text: string, values?: any[]) => {
+  try {
+    const res = await pool.query(text, values);
+    return res;
+  }
+  catch(err) {
+    console.error("Database error: ", err);
+    throw err;
+  }
+};
