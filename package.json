@@ -4,6 +4,7 @@
   "description": "Node.js with Typescript and PostgreSQL",
   "main": "server.ts",
   "scripts": {
+    "dbInit": "./src/db/init_wrapper.sh",
     "dev": "npx ts-node src/server.ts",
     "start": "node dist/server.js",
     "build": "tsc"

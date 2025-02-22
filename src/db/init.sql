@@ -25,13 +25,14 @@ BEGIN
     -- stop script if database already exists
     IF EXISTS (SELECT FROM pg_catalog.pg_database WHERE datname=db_name) THEN
         RAISE NOTICE 'Database % already exists', db_name;
-        RAISE EXCEPTION 'If attempting to reinitialize database % owned by %, drop the database first.', db_name, db_user;
+        RAISE EXCEPTION '⚠️  If attempting to reinitialize database % owned by %, drop the database first.', db_name, db_user;
     END IF;
 END $$;
 
 -- create database and tables
 CREATE DATABASE :db_name WITH OWNER :db_user;
 SELECT 'Database ' || :'db_name' || ' created' AS notice;
+\c :db_name;
 
 CREATE TABLE users (
 id SERIAL PRIMARY KEY,
