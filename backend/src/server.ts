@@ -7,9 +7,7 @@ import { userController } from "./controllers/userController";
 // setting up server
 const app = express();
 const router = express.Router();
-app.use(cors({
-  origin: "http://localhost:3000"
-}));
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(router);
 
@@ -21,6 +19,10 @@ router.get("/", (req: Request, res: Response) => {
 const port: string | number = process.env.PORT || 8000;
 const server = app.listen(port, () => {
   console.log(`⭐ Server running on port ${port}`);
+});
+
+app.get('/test', (req, res) => {
+  res.json({ message: 'Hello from backend!' });
 });
 
 // check database connection
