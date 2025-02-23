@@ -35,9 +35,9 @@ SELECT 'Database ' || :'db_name' || ' created' AS notice;
 \c :db_name;
 
 CREATE TABLE users (
-id SERIAL PRIMARY KEY,
-username TEXT UNIQUE NOT NULL,
-password  TEXT NOT NULL
+    id SERIAL PRIMARY KEY,
+    username TEXT UNIQUE NOT NULL,
+    password  TEXT NOT NULL
 );
 CREATE TABLE tasks (
     id SERIAL PRIMARY KEY,
@@ -46,5 +46,11 @@ CREATE TABLE tasks (
     isComplete BOOLEAN NOT NULL DEFAULT FALSE,
     userId INTEGER REFERENCES users(id) ON DELETE CASCADE
 );
+-- give user ownership of the newly created tables
+ALTER TABLE users OWNER TO :db_user;
+ALTER TABLE tasks OWNER TO :db_user;
+ALTER SEQUENCE users_id_seq OWNER TO :db_user;
+ALTER SEQUENCE tasks_id_seq OWNER TO :db_user;
+
 
 \set QUIET off

@@ -9,6 +9,7 @@ const app = express();
 const router = express.Router();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(router);
 
 router.get("/", (req: Request, res: Response) => {
@@ -21,16 +22,12 @@ const server = app.listen(port, () => {
   console.log(`⭐ Server running on port ${port}`);
 });
 
-app.get('/test', (req, res) => {
-  res.json({ message: 'Hello from backend!' });
-});
-
 // check database connection
 (async () => {
   try {
     await pool.connect();
     console.log('✅ Connected to PostgreSQL');
-  } catch (err) {
+  } catch(err) {
     console.error('❌ Database connection error:', err);
   }
 })();

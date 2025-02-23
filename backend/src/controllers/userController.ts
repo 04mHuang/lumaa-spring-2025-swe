@@ -19,14 +19,16 @@ export const userController = {
   registerUser : async (req: Request, res: Response): Promise<any> => {
     try {
       const { username, password } = req.body;
+      // check if another user has specified username
       const existingUser = await getLoginCredentials(username);
       if (existingUser) {
-        // 400
-        return res.status(200).json({ error: "Username already in use" });
+        return res.status(400).json({ error: "Username already in use" });
       }
+      // hash the password
       const saltRounds : number = 10;
       const salt : string = await bcrypt.genSalt(saltRounds);
       const hashedPassword : string = await bcrypt.hash(password, salt);
+      // store the user in the database
       await createUser(username, hashedPassword);
       return res.status(200).json({ message: "Registered successfully" });
     }
