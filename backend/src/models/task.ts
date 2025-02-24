@@ -12,9 +12,9 @@ export const createTask = async (userId: number, title: string, description: str
   const result = await query(text, values);
   return result.rows[0];
 };
-export const updateTask = async (taskId : number, task : string) => {
-  const text = "UPDATE tasks SET task = $1 WHERE id = $2 RETURNING *";
-  const values = [task, taskId];
+export const updateTask = async (taskId: number, title: string, description: string, isComplete: boolean) => {
+  const text = "UPDATE tasks SET title = $1, description = $2, iscomplete = $3 WHERE id = $4 RETURNING *";
+  const values = [title, description, isComplete, taskId];
   const result = await query(text, values);
   return result.rows[0];
 };

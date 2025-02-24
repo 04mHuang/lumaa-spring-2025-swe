@@ -86,8 +86,12 @@ export default function App() {
           element: <Tasks />,
         },
         {
-          path: "/taskform",
-          element: <TaskForm />,
+          path: "/create-task",
+          element: <TaskForm mode="create" />,
+        },
+        {
+          path: "/edit-task",
+          element: <TaskForm mode="edit" />,
         },
       ],
     },

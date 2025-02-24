@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 type Task = {
   task: {
     _id: string;
@@ -7,11 +9,16 @@ type Task = {
 }
 
 export default function Task({ task }: Task) {
+  const navigate = useNavigate();
+  const handleEdit = () => {
+    navigate('/edit-task', { state: { task } });
+  };
+
   return (
     <div>
       <h3>{task.title}</h3>
       <p>{task.description}</p>
-      <button>Edit</button>
+      <button onClick={handleEdit}>Edit</button>
       <button>Delete</button>
     </div>
   );

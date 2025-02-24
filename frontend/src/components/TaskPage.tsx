@@ -31,7 +31,7 @@ export default function Tasks() {
   return (
       <div>
           <h1>Tasks</h1>
-          <button onClick={() => navigate("/taskform")}>Create new task</button>
+          <button onClick={() => navigate("/create-task")}>Create new task</button>
           {tasks.map((task) => (
               <Task key={task._id} task={task} />
           ))}
