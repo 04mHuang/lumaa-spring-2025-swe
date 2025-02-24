@@ -12,11 +12,26 @@ export const taskController = {
     }
     catch(err) {
       console.error("Error creating task: ", err);
-      res.status(500).json({ error: "Error creating task" });
+      return res.status(500).json({ error: "Error creating task" });
     }
   },  
   getTasks: async (req: Request, res: Response): Promise<any> => {
-      res.send('getTasks');
+    const userId = req.query.userId as string;
+    if(!userId) {
+      return res.status(400).json({ error: "Missing userId" });
+    }
+    try {
+      const tasks = await getTasks(parseInt(userId));
+      console.log("id ",userId)
+      console.log(tasks);
+      if(tasks) {
+        return res.status(200).json(tasks);
+      }
+    }
+    catch(err) {
+      console.error("Error getting tasks: ", err);
+      return res.status(500).json({ error: "Error getting tasks" });
+    }
   },
   updateTask: async (req: Request, res: Response): Promise<any> => {
       res.send('updateTask');

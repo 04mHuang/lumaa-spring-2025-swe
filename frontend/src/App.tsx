@@ -1,9 +1,9 @@
 import { createBrowserRouter, RouterProvider, Link, Outlet, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import api from "./services/api";
-import Registration from "./components/Registration";
-import Login from "./components/Login";
-import Tasks from "./components/Tasks";
+import Registration from "./components/RegistrationPage";
+import Login from "./components/LoginPage";
+import Tasks from "./components/TaskPage";
 import TaskForm from "./components/TaskForm";
 import "./App.css";
 

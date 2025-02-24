@@ -38,8 +38,7 @@ export default function TaskForm() {
             required 
           />
           <label htmlFor="description">Description</label>
-          <input 
-            type="textarea" 
+          <textarea
             id="description" 
             name="description" 
             value={description}
