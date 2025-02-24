@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import { pool } from "./db/db.config";
 import { userController } from "./controllers/userController";
+import { taskController } from "./controllers/taskController";
 
 // setting up server
 const app = express();
@@ -53,3 +54,7 @@ router.post("/auth/login", userController.loginUser);
 
 // router handlers for tasks
 // router.get("/tasks", auth, taskController.getTasks);
+router.post("/tasks", taskController.createTask);
+router.get("/tasks", taskController.getTasks);
+router.put("/tasks/:id", taskController.updateTask);
+router.delete("/tasks/:id", taskController.deleteTask);
