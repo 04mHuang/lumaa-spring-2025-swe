@@ -4,6 +4,7 @@ import { logout } from "./services/api";
 import Registration from "./components/Registration";
 import Login from "./components/Login";
 import Tasks from "./components/Tasks";
+import TaskForm from "./components/TaskForm";
 import "./App.css";
 
 type LoginProps = {
@@ -67,6 +68,10 @@ export default function App() {
         {
           path: "/tasks",
           element: <Tasks />,
+        },
+        {
+          path: "/taskform",
+          element: <TaskForm />,
         },
       ],
     },
