@@ -12,7 +12,7 @@ const generateToken = (userId: number) => {
   if(jwtSecretKey) {
     return jwt.sign({ userId }, jwtSecretKey, { expiresIn: "1h" });
   }
-  throw new Error("JWT_SECRET_KEY is not defined in .env");
+  throw new Error("JWT_SECRET_KEY is not defined in environment variables. Try source .env");
 };
 
 export const userController = {

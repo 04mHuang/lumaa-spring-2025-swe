@@ -26,9 +26,9 @@ const server = app.listen(port, () => {
 (async () => {
   try {
     await pool.connect();
-    console.log('✅ Connected to PostgreSQL');
+    console.log("✅ Connected to PostgreSQL");
   } catch(err) {
-    console.error('❌ Database connection error:', err);
+    console.error("❌ Database connection error:", err);
   }
 })();
 
@@ -47,10 +47,9 @@ process.on("SIGINT", () => {
   process.exit(0);
 });
 
-// router handlers
-router.post('/auth/register', userController.registerUser);
-router.post('/auth/login', userController.loginUser);
+// router handlers for user
+router.post("/auth/register", userController.registerUser);
+router.post("/auth/login", userController.loginUser);
 
-// router.post('/auth/register', async (req, res) => {
-//   await userController.registerUser(req, res);
-// });
+// router handlers for tasks
+// router.get("/tasks", auth, taskController.getTasks);
