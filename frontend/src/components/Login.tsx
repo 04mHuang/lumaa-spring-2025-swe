@@ -1,25 +1,33 @@
 import { useState } from "react";
 import api from "../services/api";
-export default function Registration() {
+export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-          await api.post('/auth/register', { username, password });
-          alert("Registration successful. Please login.");
+          const response = await api.post('/auth/login', { username, password });
+          if(response.data.token) {
+            localStorage.setItem("token", response.data.token);
+            alert("Login successful!");
+          }
+          else {
+            alert("Login failed. Please try again.");
+          }
+          // console.log(`Token ${localStorage.getItem("token")}`);
+          // console.log(`Data ${response.data.token}`);
         }
         catch(err) {
-          console.error("Registration error: ", err);
-          alert("Registration failed. Please try again with a different username.");
+          console.error("Login error: ", err);
+          alert("Login failed. Please try again.");
         }
     };
     
     return (
         <div>
-            <h1>Registration</h1>
-            <form onSubmit={handleSubmit} id="registration-form" method="POST" >
+            <h1>Login</h1>
+            <form onSubmit={handleSubmit} id="login-form" method="POST" >
                 <label htmlFor="username">Username</label>
                 <input 
                   type="text" 
@@ -38,8 +46,9 @@ export default function Registration() {
                   onChange={(e) => setPassword(e.target.value)} 
                   required 
                 />
-                <button type="submit">Register</button>
+                <button type="submit">Login</button>
             </form>
+            <h2>Username: {username}</h2>
         </div>
     )
 }
