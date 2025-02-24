@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import api from "../services/api";
 import Task from "./Task";
+import "../styles/Task.css";
 
 type Task = {
   id: string;
@@ -28,11 +29,12 @@ export default function Tasks() {
   useEffect(() => {
     getTaskList();
   }, []);
-  
   return (
-      <div>
-          <h1>Tasks</h1>
-          <button onClick={() => navigate("/create-task")}>Create new task</button>
+      <div id="task-page">
+          <div id="task-header">
+            <h1>Tasks</h1>
+            <button onClick={() => navigate("/create-task")}>New Task</button>
+          </div>
           {tasks.map((task) => (
               <Task key={task.id} task={task} getTaskList={getTaskList} />
           ))}

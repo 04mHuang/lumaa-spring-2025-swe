@@ -5,7 +5,7 @@ import Registration from "./components/RegistrationPage";
 import Login from "./components/LoginPage";
 import Tasks from "./components/TaskPage";
 import TaskForm from "./components/TaskForm";
-import "./App.css";
+import "./styles/Navbar.css";
 
 type LoginProps = {
   isLoggedIn: boolean;
@@ -37,16 +37,16 @@ const NavLayout = ({ isLoggedIn, setIsLoggedIn } : LoginProps) => {
 
   return (
     <div>
-      <nav>
+      <nav className={`nav-bar ${isLoggedIn ? 'nav-logged-in' : 'nav-not-logged'}`}>
         {!isLoggedIn ? (
-          <>
-            <Link to="/registration">Register</Link>
-            <Link to="/login">Login</Link>
-          </>
+          <div>
+            <Link className="account-button" to="/registration">Register</Link>
+            <Link className="account-button" to="/login">Login</Link>
+          </div>
         ) : (
           <>
-            <Link to="/tasks">Tasks</Link>
-            <button onClick={handleLogout}>Logout</button>
+            <Link className="nav-link" to="/tasks">Tasks</Link>
+            <button className="account-button" onClick={handleLogout}>Logout</button>
           </>
         )}
       </nav>

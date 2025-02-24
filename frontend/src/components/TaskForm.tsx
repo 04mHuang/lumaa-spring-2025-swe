@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import api from "../services/api";
+import "../styles/Form.css";
 
 type TaskForm = {
   mode: "create" | "edit";
@@ -20,6 +21,7 @@ export default function TaskForm({ mode }: TaskForm) {
     if(mode === "edit" && task) {
       setTitle(task.title);
       setDescription(task.description);
+      console.log("IN USE STATE",task.isComplete);
       setIsComplete(task.isComplete);
     }
   }, [mode, task]);
@@ -49,7 +51,7 @@ export default function TaskForm({ mode }: TaskForm) {
   };
 
   return (
-    <div>
+    <div className="form">
       <h1>Task Form</h1>
       <form onSubmit={handleSubmit} id="login-form" method="POST" >
           <label htmlFor="title">Title *</label>
@@ -68,12 +70,14 @@ export default function TaskForm({ mode }: TaskForm) {
             value={description}
             onChange={(e) => setDescription(e.target.value)} 
           />
-          <label htmlFor="isComplete">Is this task complete?</label>
+          <br />
+          <label id="checkbox-label" htmlFor="isComplete">Is this task complete?&nbsp;</label>
           <input 
             type="checkbox" 
             id="isComplete" 
             name="isComplete" 
-            onChange={() => setIsComplete(true)} 
+            checked={isComplete}
+            onChange={(e) => setIsComplete(e.target.checked)} 
           />
           <button type="submit">Save</button>
       </form>

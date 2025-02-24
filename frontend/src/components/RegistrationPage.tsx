@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
+import "../styles/Form.css";
 
 export default function Registration() {
     const [username, setUsername] = useState("");
@@ -21,10 +22,10 @@ export default function Registration() {
     };
     
     return (
-        <div>
+        <div className="form">
             <h1>Registration</h1>
             <form onSubmit={handleSubmit} id="registration-form" method="POST" >
-                <label htmlFor="username">Username</label>
+                <label htmlFor="username">Username&nbsp;</label>
                 <input 
                   type="text" 
                   id="username" 
@@ -33,7 +34,8 @@ export default function Registration() {
                   onChange={(e) => setUsername(e.target.value)} 
                   required 
                 />
-                <label htmlFor="password">Password</label>
+                <br />
+                <label htmlFor="password">Password&nbsp;</label>
                 <input 
                   type="password" 
                   id="password" 
@@ -42,6 +44,7 @@ export default function Registration() {
                   onChange={(e) => setPassword(e.target.value)} 
                   required 
                 />
+                <br />
                 <button type="submit">Register</button>
             </form>
         </div>

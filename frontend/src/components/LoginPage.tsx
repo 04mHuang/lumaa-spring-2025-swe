@@ -1,6 +1,7 @@
 import { useState } from "react";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
+import "../styles/Form.css";
 
 type LoginProps = {
   setIsLoggedIn: (value: boolean) => void;
@@ -31,10 +32,10 @@ export default function Login({ setIsLoggedIn } : LoginProps) {
     };
     
     return (
-        <div>
+        <div className="form">
             <h1>Login</h1>
             <form onSubmit={handleSubmit} id="login-form" method="POST" >
-                <label htmlFor="username">Username</label>
+                <label htmlFor="username">Username&nbsp;</label>
                 <input 
                   type="text" 
                   id="username" 
@@ -43,7 +44,8 @@ export default function Login({ setIsLoggedIn } : LoginProps) {
                   onChange={(e) => setUsername(e.target.value)} 
                   required 
                 />
-                <label htmlFor="password">Password</label>
+                <br />
+                <label htmlFor="password">Password&nbsp;</label>
                 <input 
                   type="password" 
                   id="password" 
@@ -52,9 +54,9 @@ export default function Login({ setIsLoggedIn } : LoginProps) {
                   onChange={(e) => setPassword(e.target.value)} 
                   required 
                 />
+                <br />
                 <button type="submit">Login</button>
             </form>
-            <h2>Username: {username}</h2>
         </div>
     )
 }
