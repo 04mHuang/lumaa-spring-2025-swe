@@ -4,7 +4,7 @@ import api from "../services/api";
 import Task from "./Task";
 
 type Task = {
-  _id: string;
+  id: string;
   title: string;
   description: string;
   isCompleted: boolean;
@@ -28,12 +28,13 @@ export default function Tasks() {
   useEffect(() => {
     getTaskList();
   }, []);
+  
   return (
       <div>
           <h1>Tasks</h1>
           <button onClick={() => navigate("/create-task")}>Create new task</button>
           {tasks.map((task) => (
-              <Task key={task._id} task={task} />
+              <Task key={task.id} task={task} getTaskList={getTaskList} />
           ))}
       </div>
   );
