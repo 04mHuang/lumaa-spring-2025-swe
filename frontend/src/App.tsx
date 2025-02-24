@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider, Link, Outlet, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { logout } from "./services/api";
+import api from "./services/api";
 import Registration from "./components/Registration";
 import Login from "./components/Login";
 import Tasks from "./components/Tasks";
@@ -11,6 +11,12 @@ type LoginProps = {
   isLoggedIn: boolean;
   setIsLoggedIn: (value: boolean) => void;
 }
+const logout =  () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("userId");
+  delete api.defaults.headers.common["Authorization"];
+  alert("You have been logged out.");
+};
 
 const NavLayout = ({ isLoggedIn, setIsLoggedIn } : LoginProps) => {
   const navigate = useNavigate();
@@ -51,6 +57,16 @@ const NavLayout = ({ isLoggedIn, setIsLoggedIn } : LoginProps) => {
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // if a user is logged in and reloads the page, keeps them logged in
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
+    
+    if (token && userId) {
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const router = createBrowserRouter([
     {

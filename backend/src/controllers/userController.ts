@@ -50,8 +50,8 @@ export const userController = {
         return res.status(200).json({ error: "Invalid username or password" });
       }
       // generate and provide client JWT token
-      const token = generateToken(user.userId);
-      return res.status(200).json({ message: "Login successful", token });
+      const token = generateToken(user.id);
+      return res.status(200).json({ message: "Login successful", token, userId: user.id });
     }
     catch(err) {
       console.error("Error logging in user: ", err);

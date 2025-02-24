@@ -21,14 +21,11 @@ api.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem("token");
+      localStorage.removeItem("userId");
       alert("Session expired. Please login again.");
     }
     return Promise.reject(error);
   }
 );
-export const logout =  () => {
-    localStorage.removeItem("token");
-    alert("You have been logged out.");
-};
 
 export default api;

@@ -19,6 +19,7 @@ export default function Login({ setIsLoggedIn } : LoginProps) {
             return;
           }
           localStorage.setItem("token", response.data.token);
+          localStorage.setItem("userId", response.data.userId);
           setIsLoggedIn(true);
           alert("Login successful!");
           navigate("/tasks");
