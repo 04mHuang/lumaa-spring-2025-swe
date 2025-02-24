@@ -21,8 +21,7 @@ export default function TaskForm({ mode }: TaskForm) {
     if(mode === "edit" && task) {
       setTitle(task.title);
       setDescription(task.description);
-      console.log("IN USE STATE",task.isComplete);
-      setIsComplete(task.isComplete);
+      setIsComplete(task.iscomplete);
     }
   }, [mode, task]);
 

@@ -8,7 +8,7 @@ type Task = {
   id: string;
   title: string;
   description: string;
-  isCompleted: boolean;
+  iscomplete: boolean;
   userId: string;
 };
 

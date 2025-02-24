@@ -7,7 +7,7 @@ type Task = {
     id: string;
     title: string;
     description: string;
-    isCompleted: boolean;
+    iscomplete: boolean;
   },
   getTaskList: () => Promise<void>;
 }
@@ -31,13 +31,11 @@ export default function Task({ task, getTaskList }: Task) {
     }
     
   }; 
-  console.log('task.isCompleted:', task.isCompleted, typeof task.isCompleted);
-
 
   return (
     <div className="task">
       <h3>{task.title}</h3>
-      <p>{task.isCompleted ? "Completed" : "Not Completed"}</p>
+      <p>{task.iscomplete ? "Completed" : "Not Completed"}</p>
       <p>{task.description}</p>
       
       <button onClick={handleEdit}>Edit</button>
