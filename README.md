@@ -4,6 +4,24 @@
 
 ---
 
+## Submission Overview ✨
+Create an .env file in the backend directory following the `backend/.env.example` file.
+
+In the **backend** directory:
+1. `npm install`
+2. `npm run dbInit`
+3. `npm run dev`
+
+In the **frontend** directory:
+1. `npm install`
+2. `npm run dev`
+
+🙈 [Watch the Demo Video](Lumaa_Challenge.mp4)
+
+Salary Expectations per Month: $3,500 - $5,500
+
+---
+
 ## Overview
 
 Create a “Task Management” application with **React + TypeScript** (frontend), **Node.js** (or **Nest.js**) (backend), and **PostgreSQL** (database). The application should:
@@ -117,8 +135,3 @@ This challenge is intended to be completed within ~3 hours, so keep solutions mi
    - Minimal hard-coded values
 
 Good luck, and we look forward to your submission!
-
-from the root directory:
-./src/db/init_wrapper.sh
-npm install
-npm run dev
